@@ -41,7 +41,6 @@ class geological:
         g.readShapefile(filename,'geodata')
         g.clear()
         g.drawWorld()
-        #g.drawShapes('geodata', scipy.arange(len(g.m.geodata_info)), edgecolor = 'black', facecolor = 'white', lw=3)
         usa = []        
         for i in scipy.arange(len(g.m.geodata_info)):
             if g.m.geodata_info[i]['COWCODE'] == code:
