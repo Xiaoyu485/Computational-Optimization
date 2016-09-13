@@ -31,7 +31,7 @@ class GeoPlotter:
     def getAxes(self):
         ax = self.m.ax
         if ax == None:
-            return pylab.gca()
+            return matplotlib.pyplot.gca()
         return ax
 
     def getFigure(self):

@@ -83,10 +83,10 @@ class MilexPlotter:
         cows = geo.COWs()
         cows = pandas.Series.tolist(cows)
         notnull = []
-        CINC = []
+        CINC = pandas.Series.tolist(self.CINC_df.cinc)
         for i in scipy.arange(len(cows)):
             if not(self.CINC_df[self.CINC_df.ccode == cows[i]][self.CINC_df.year == year].cinc is None) and (len(pandas.Series.tolist(self.CINC_df[self.CINC_df.ccode == cows[i]][self.CINC_df.year == year].cinc))>=1):                
-                CINC.append(pandas.Series.tolist(self.CINC_df[self.CINC_df.ccode == cows[i]][self.CINC_df.year == year].cinc)[0])
+                #CINC.append(pandas.Series.tolist(self.CINC_df[self.CINC_df.ccode == cows[i]][self.CINC_df.year == year].cinc)[0])
                 notnull.append(cows[i])
         maxCINC = max(CINC)
         norm = matplotlib.colors.Normalize(vmin=0,vmax=maxCINC)
@@ -103,9 +103,11 @@ class MilexPlotter:
         year = (self.CINC_df.year)
         year = year.drop_duplicates(keep = 'first')
         year = pandas.Series.tolist(year)
-        for i in year:
+        for i in [2007]:
             self.plotYear(i)
-            self.g.savefig('F:\Study\Computational Optimization\World CINC png\HW2figure'+str(i), dpi=None, facecolor = 'w',edgecolor = 'black', orientation = 'portrait',
+#            self.g.savefig('F:\Study\Computational Optimization\World CINC png\HW2figure'+str(i), dpi=None, facecolor = 'w',edgecolor = 'black', orientation = 'portrait',
+#                            papertype = None, format = None, transparent = False, bbox_inches = None, pad_inches = 0.1, frameon = None)
+            self.g.savefig('/Users/Shaw/Computational-Optimization/World CINC png/_test_HW2figure'+str(i), dpi=None, facecolor = 'w',edgecolor = 'black', orientation = 'portrait',
                             papertype = None, format = None, transparent = False, bbox_inches = None, pad_inches = 0.1, frameon = None)
                             
         
