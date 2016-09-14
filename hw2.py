@@ -10,6 +10,7 @@ import pandas
 import scipy
 import pylab
 import matplotlib
+import matplotlib.pyplot as plt
 
 
 
@@ -58,13 +59,14 @@ class MilexPlotter:
         self.ShapePolygon = self.g.m.geodata
         self.ShapeInfo = self.g.m.geodata_info
     
-    def drawWorld(self):
+    def drawWorld(self,farg):
         self.g.clear()
         self.g.drawMapBoundary()
         self.g.fillContinents(color = 'blue')
         self.g.drawCoastLines(linewidth=0.7)
         self.g.drawCountries(linewidth=1.5)
         self.g.drawStates(linewidth=0.7)
+        plt.text(-137,0,farg, size = 'large')
         
     def plotCountry(self, code, **kwargs):
         defaults = dict(edgecolor = 'red', facecolor = 'orange', lw=0) 
@@ -76,9 +78,8 @@ class MilexPlotter:
         self.g.drawShapes('geodata', country, **defaults) 
     
     def plotYear(self,year):
-        self.drawWorld()
         self.g.clear()
-        self.drawWorld()
+        self.drawWorld(str(year))
         geo = geological()
         cows = geo.COWs()
         cows = pandas.Series.tolist(cows)
@@ -103,7 +104,7 @@ class MilexPlotter:
         year = (self.CINC_df.year)
         year = year.drop_duplicates(keep = 'first')
         year = pandas.Series.tolist(year)
-        for i in [2007]:
+        for i in year:
             self.plotYear(i)
 #            self.g.savefig('F:\Study\Computational Optimization\World CINC png\HW2figure'+str(i), dpi=None, facecolor = 'w',edgecolor = 'black', orientation = 'portrait',
 #                            papertype = None, format = None, transparent = False, bbox_inches = None, pad_inches = 0.1, frameon = None)
