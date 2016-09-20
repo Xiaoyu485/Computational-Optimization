@@ -29,17 +29,16 @@ class Parabola:
           
     def grad(self,x):
         gvalue = 2*numpy.multiply(self.alpha,numpy.subtract(x, self.center))
-        print numpy.size(gvalue)
         return gvalue
     
     def sgrad(self,x,ndata=None):
-        n = numpy.size(x)
+        size = numpy.size(x[0])
+        num_p = numpy.size(x)/size
         a = numpy.zeros(n)
         direct = numpy.random.randint(0,n,1)
         a[direct] = 1
-#        a = scipy.randn(1000,n)
+        a=numpy.array([a]*num_p)
         sgrad  = a*numpy.transpose(self.grad(x))
-#        sgrad = numpy.sum(sgrad,axis=0)
         return sgrad
         
     def step_size(self,gamma,start=1):
@@ -49,8 +48,10 @@ class Parabola:
 
 class ParabolaDir(Parabola):
     def sgrad(self,x,ndata=None):
-        size = numpy.size(x)
+        size = numpy.size(x[0])
+        num_p = numpy.size(x)/size
         direction = numpy.random.randint(2,size=size)
+        direction = numpy.array([direction]*num_p)
         sgrad  = direction*numpy.transpose(self.grad(x))
         return sgrad
     
