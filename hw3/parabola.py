@@ -20,25 +20,27 @@ class Parabola:
     def feval(self,x):
         mini = numpy.subtract(x,self.center);
         mini = mini**2
-        fval = numpy.dot(self.alpha,mini)
+        fval = numpy.dot(mini,self.alpha)
         return fval
     
     def seval(self,x,ndata=None):
-        fval = numpy.dot(self.alpha,numpy.subtract(x, self.center)**2)
+        fval = numpy.dot(numpy.subtract(x, self.center)**2,self.alpha)
         return fval
           
     def grad(self,x):
-        gvalue = 2*numpy.multiply(self.alpha,numpy.subtract(x, self.center))
+        raw = 2*numpy.multiply(numpy.subtract(x, self.center),self.alpha)
+        gvalue = raw/numpy.linalg.norm(raw)
+#        gvalue = gvalue/g
         return gvalue
     
     def sgrad(self,x,ndata=None):
         size = numpy.size(x[0])
         num_p = numpy.size(x)/size
-        a = numpy.zeros(n)
-        direct = numpy.random.randint(0,n,1)
+        a = numpy.zeros(size)
+        direct = numpy.random.randint(0,size,1)
         a[direct] = 1
         a=numpy.array([a]*num_p)
-        sgrad  = a*numpy.transpose(self.grad(x))
+        sgrad  = a*(self.grad(x))
         return sgrad
         
     def step_size(self,gamma,start=1):
@@ -52,7 +54,7 @@ class ParabolaDir(Parabola):
         num_p = numpy.size(x)/size
         direction = numpy.random.randint(2,size=size)
         direction = numpy.array([direction]*num_p)
-        sgrad  = direction*numpy.transpose(self.grad(x))
+        sgrad  = direction*(self.grad(x))
         return sgrad
     
     
