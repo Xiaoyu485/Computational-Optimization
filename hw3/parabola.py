@@ -52,6 +52,9 @@ class ParabolaDir(Parabola):
     def sgrad(self,x,ndata=None):
         size = numpy.size(x[0])
         num_p = numpy.size(x)/size
+        direction = scipy.randn(num_p,size)
+#        norms = scipy.sqrt((direction*direction).sum(axis=1))
+#        direction = direction/norms.reshape(num_p,1)
         direction = numpy.random.randint(2,size=size)
         direction = numpy.array([direction]*num_p)
         sgrad  = direction*(self.grad(x))
